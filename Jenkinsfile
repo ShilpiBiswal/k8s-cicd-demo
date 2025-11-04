@@ -9,7 +9,6 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/ShilpiBiswal/k8s-cicd-demo.git'
-
             }
         }
 
@@ -21,9 +20,12 @@ pipeline {
 
         stage('Push to DockerHub') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')]) {
-                    sh 'echo $DOCKER_TOKEN | docker login -u your-dockerhub-username --password-stdin'
-                    sh 'docker push $DOCKER_HUB:$BUILD_NUMBER'
+                // Use Username + Password credentials
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-token', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker push $DOCKER_HUB:$BUILD_NUMBER
+                    '''
                 }
             }
         }
