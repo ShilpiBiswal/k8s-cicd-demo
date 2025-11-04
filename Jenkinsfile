@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB = 'your-dockerhub-username/student-dashboard'
+        DOCKER_HUB = 'shilpibiswal/student-dashboard'
     }
 
     stages {
