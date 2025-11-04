@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-dashboard
+  labels:
+    app: student-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-dashboard
+  template:
+    metadata:
+      labels:
+        app: student-dashboard
+    spec:
+      containers:
+      - name: student-dashboard
+        image: shilpibiswal/student-dashboard:latest
+        ports:
+        - containerPort: 5000
