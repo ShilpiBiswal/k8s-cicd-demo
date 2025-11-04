@@ -1,17 +1,6 @@
-# Use Python base image
-FROM python:3.9-slim
-
-# Set working directory
+FROM python:3.10-slim
 WORKDIR /app
-
-# Copy files
-COPY requirements.txt .
+COPY . /app
 RUN pip install -r requirements.txt
-
-COPY . .
-
-# Expose app port
 EXPOSE 5000
-
-# Run app
-CMD ["python", "app.py"]
+CMD ["python", "app/app.py"]
