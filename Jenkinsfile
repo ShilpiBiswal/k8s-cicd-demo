@@ -31,6 +31,12 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
+            agent {
+                docker {
+                    image 'lachlanevenson/k8s-kubectl:latest'
+                    args '-v /root/.kube:/root/.kube'
+                }
+            }
             steps {
                 sh 'kubectl apply -f deployment.yaml'
             }
